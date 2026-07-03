@@ -22,10 +22,10 @@ jobs:
         dotnet-version: '9.0.x'
 
     - name: Restore Dependencies
-      run: dotnet restore src/backend/ClaimsModule.sln
+      run: dotnet restore src/backend/ClaimsModule.slnx
 
     - name: Build Backend Solution
-      run: dotnet build src/backend/ClaimsModule.sln --configuration Release --no-restore
+      run: dotnet build src/backend/ClaimsModule.slnx --configuration Release --no-restore
 
     - name: Publish Backend Package
       run: dotnet publish src/backend/ClaimsModule.API/ClaimsModule.API.csproj --configuration Release --output ./publish_output
