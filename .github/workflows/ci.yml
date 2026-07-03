@@ -8,10 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy-backend:
-    name: Build and Deploy Backend
+  build-backend:
+    name: Build Backend
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -30,19 +29,15 @@ jobs:
       - name: Publish Backend Package
         run: dotnet publish src/backend/ClaimsModule.API/ClaimsModule.API.csproj --configuration Release --output ./publish_output
 
-      - name: Deploy to Azure App Service
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: azure/webapps-deploy@v3
+      - name: Upload Backend Artifact
+        uses: actions/upload-artifact@v4
         with:
-          app-name: diceus-claims-jmnxyait7hjje-api
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./publish_output
+          name: backend-package
+          path: ./publish_output
 
-  build-and-deploy-frontend:
-    name: Build and Deploy Frontend
+  build-frontend:
+    name: Build Frontend
     runs-on: ubuntu-latest
-    needs: build-and-deploy-backend
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -50,7 +45,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: src/frontend/claims-app/package-lock.json
 
@@ -62,7 +57,7 @@ jobs:
         run: |
           BACKEND_URL="${{ secrets.AZURE_BACKEND_URL }}"
           if [ -z "$BACKEND_URL" ]; then
-            BACKEND_URL="https://diceus-claims-api.azurewebsites.net"
+            BACKEND_URL="https://diceus-claims-jmnxyait7hjje-api.azurewebsites.net"
           fi
           echo "Injecting Backend API URL: $BACKEND_URL"
           echo "{\"apiUrl\": \"$BACKEND_URL\"}" > src/frontend/claims-app/public/config.json
@@ -74,7 +69,6 @@ jobs:
       - name: Prepare Node.js Host Package
         working-directory: src/frontend/claims-app
         run: |
-          mkdir -p dist/claims-app
           cat << 'SERVEREOF' > dist/claims-app/server.js
           const express = require('express');
           const path = require('path');
@@ -100,10 +94,46 @@ jobs:
           }
           PKGEOF
 
-      - name: Deploy to Azure App Service Frontend
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Upload Frontend Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-package
+          path: src/frontend/claims-app/dist/claims-app
+
+  deploy-backend:
+    name: Deploy Backend to Azure
+    runs-on: ubuntu-latest
+    needs: build-backend
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Download Backend Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-package
+          path: ./publish_output
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: diceus-claims-jmnxyait7hjje-api
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./publish_output
+
+  deploy-frontend:
+    name: Deploy Frontend to Azure
+    runs-on: ubuntu-latest
+    needs: build-frontend
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Download Frontend Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-package
+          path: ./frontend-package
+
+      - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
         with:
           app-name: diceus-claims-jmnxyait7hjje-frontend
           publish-profile: ${{ secrets.AZURE_FRONTEND_PUBLISH_PROFILE }}
-          package: src/frontend/claims-app/dist/claims-app
+          package: ./frontend-package
