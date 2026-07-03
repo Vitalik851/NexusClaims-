@@ -34,7 +34,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: azure/webapps-deploy@v3
         with:
-          app-name: diceus-claims-api
+          app-name: diceus-claims-jmnxyait7hjje-api
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ./publish_output
 
@@ -104,6 +104,6 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: azure/webapps-deploy@v3
         with:
-          app-name: diceus-claims-frontend
+          app-name: diceus-claims-jmnxyait7hjje-frontend
           publish-profile: ${{ secrets.AZURE_FRONTEND_PUBLISH_PROFILE }}
           package: src/frontend/claims-app/dist/claims-app
