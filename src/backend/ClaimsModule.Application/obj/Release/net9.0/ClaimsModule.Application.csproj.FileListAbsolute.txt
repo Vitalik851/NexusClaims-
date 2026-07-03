@@ -1,0 +1,16 @@
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\bin\Release\net9.0\ClaimsModule.Application.deps.json
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\bin\Release\net9.0\ClaimsModule.Application.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\bin\Release\net9.0\ClaimsModule.Application.pdb
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\bin\Release\net9.0\ClaimsModule.Domain.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\bin\Release\net9.0\ClaimsModule.Domain.pdb
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\obj\Release\net9.0\ClaimsModule.Application.csproj.AssemblyReference.cache
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\obj\Release\net9.0\ClaimsModule.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\obj\Release\net9.0\ClaimsModule.Application.AssemblyInfoInputs.cache
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\obj\Release\net9.0\ClaimsModule.Application.AssemblyInfo.cs
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\obj\Release\net9.0\ClaimsModule.Application.csproj.CoreCompileInputs.cache
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\obj\Release\net9.0\ClaimsModule.Application.sourcelink.json
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\obj\Release\net9.0\ClaimsMo.9D4E3524.Up2Date
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\obj\Release\net9.0\ClaimsModule.Application.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\obj\Release\net9.0\refint\ClaimsModule.Application.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\obj\Release\net9.0\ClaimsModule.Application.pdb
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Application\obj\Release\net9.0\ref\ClaimsModule.Application.dll

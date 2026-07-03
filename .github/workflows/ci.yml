@@ -67,9 +67,9 @@ jobs:
         run: npm run build -- --configuration=production
 
       - name: Prepare Node.js Host Package
-        working-directory: src/frontend/claims-app
+        working-directory: src/frontend/claims-app/dist/claims-app
         run: |
-          cat << 'SERVEREOF' > dist/claims-app/server.js
+          cat > server.js << 'EOF'
           const express = require('express');
           const path = require('path');
           const app = express();
@@ -79,8 +79,8 @@ jobs:
             res.sendFile(path.join(__dirname, 'browser', 'index.html'));
           });
           app.listen(port, () => console.log(`Server running on port ${port}`));
-          SERVEREOF
-          cat << 'PKGEOF' > dist/claims-app/package.json
+          EOF
+          cat > package.json << 'EOF'
           {
             "name": "claims-frontend",
             "version": "1.0.0",
@@ -92,7 +92,8 @@ jobs:
               "express": "^4.19.2"
             }
           }
-          PKGEOF
+          EOF
+          npm install --production
 
       - name: Upload Frontend Artifact
         uses: actions/upload-artifact@v4
@@ -112,6 +113,9 @@ jobs:
           name: backend-package
           path: ./publish_output
 
+      - name: List deployment contents
+        run: ls -la ./publish_output/
+
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
         with:
@@ -130,6 +134,9 @@ jobs:
         with:
           name: frontend-package
           path: ./frontend-package
+
+      - name: List deployment contents
+        run: ls -la ./frontend-package/
 
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v3
