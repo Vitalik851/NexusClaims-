@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9jAEzo9XyV0=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\vetal\\OneDrive\\Desktop\\DICEUS\\src\\backend\\ClaimsModule.Domain\\ClaimsModule.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vetal\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

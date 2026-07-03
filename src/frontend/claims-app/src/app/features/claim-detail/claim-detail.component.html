@@ -1,0 +1,111 @@
+<div class="detail-container">
+  @if (loading) {
+    <app-loading-spinner [diameter]="50" message="Fetching claim records..."></app-loading-spinner>
+  } @else if (claim) {
+    
+    <!-- Top Action Bar / Breadcrumbs -->
+    <div class="action-bar animate-fade">
+      <div class="breadcrumbs">
+        <a routerLink="/">Claims Dashboard</a>
+        <mat-icon>chevron_right</mat-icon>
+        <span class="active">{{ claim.claimNumber }}</span>
+      </div>
+      
+      <div class="header-status-group">
+        <app-status-badge [status]="claim.status"></app-status-badge>
+        @if (claim.managerOverrideFlag) {
+          <span class="override-badge"><mat-icon>gavel</mat-icon> Manager Override Active</span>
+        }
+      </div>
+    </div>
+
+    <!-- Header Details Card -->
+    <mat-card class="header-card animate-fade">
+      <mat-card-content class="header-grid">
+        <div class="info-block">
+          <span class="label">Claim Number</span>
+          <span class="valueHighlight">{{ claim.claimNumber }}</span>
+        </div>
+        <div class="info-block">
+          <span class="label">Policy Number</span>
+          <span class="value">{{ claim.policyNumber || 'Not Linked' }}</span>
+        </div>
+        <div class="info-block">
+          <span class="label">Insured Client</span>
+          <span class="value">{{ claim.clientName || 'N/A' }}</span>
+        </div>
+        <div class="info-block">
+          <span class="label">Loss Date</span>
+          <span class="value">{{ claim.lossEvent.lossDate | date:'mediumDate' }}</span>
+        </div>
+        <div class="info-block">
+          <span class="label">Assigned Handler</span>
+          <span class="value">{{ getHandlerName(claim.assignedHandlerId) }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Tabs Group -->
+    <mat-tab-group class="custom-tab-group animate-fade" animationDuration="200ms">
+      
+      <!-- TAB 1: OVERVIEW -->
+      <mat-tab>
+        <ng-template matTabLabel>
+          <mat-icon>info</mat-icon> Overview
+        </ng-template>
+        <div class="tab-padding">
+          <app-overview-tab [claim]="claim" (statusChanged)="reloadClaim()"></app-overview-tab>
+        </div>
+      </mat-tab>
+
+      <!-- TAB 2: PARTIES -->
+      <mat-tab>
+        <ng-template matTabLabel>
+          <mat-icon>people</mat-icon> Parties
+        </ng-template>
+        <div class="tab-padding">
+          <app-parties-tab [claim]="claim" (partiesChanged)="reloadClaim()"></app-parties-tab>
+        </div>
+      </mat-tab>
+
+      <!-- TAB 3: FINANCIALS & RESERVES -->
+      <mat-tab>
+        <ng-template matTabLabel>
+          <mat-icon>account_balance_wallet</mat-icon> Reserves
+        </ng-template>
+        <div class="tab-padding">
+          <app-reserves-tab [claim]="claim" (reservesChanged)="reloadClaim()"></app-reserves-tab>
+        </div>
+      </mat-tab>
+
+      <!-- TAB 4: DOCUMENTS -->
+      <mat-tab>
+        <ng-template matTabLabel>
+          <mat-icon>description</mat-icon> Documents
+        </ng-template>
+        <div class="tab-padding">
+          <app-documents-tab [claim]="claim" (documentsChanged)="reloadClaim()"></app-documents-tab>
+        </div>
+      </mat-tab>
+
+      <!-- TAB 5: AUDIT LOG -->
+      <mat-tab>
+        <ng-template matTabLabel>
+          <mat-icon>history</mat-icon> Audit Log
+        </ng-template>
+        <div class="tab-padding">
+          <app-audit-log-tab [claimId]="claim.id"></app-audit-log-tab>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+
+  } @else {
+    <div class="error-container">
+      <mat-icon>error_outline</mat-icon>
+      <h2>Claim record not found</h2>
+      <p>The requested claim does not exist or you lack sufficient access permissions.</p>
+      <button mat-flat-button color="primary" routerLink="/">Return to Dashboard</button>
+    </div>
+  }
+</div>

@@ -1,0 +1,57 @@
+<div class="app-layout">
+  
+  <!-- Navigation Header Toolbar -->
+  <mat-toolbar color="primary" class="main-toolbar">
+    <div class="toolbar-left" routerLink="/">
+      <mat-icon class="logo-icon">shield</mat-icon>
+      <span class="app-title">{{ title }}</span>
+    </div>
+
+    <div class="toolbar-center">
+      <button mat-button routerLink="/" routerLinkActive="active-nav-link" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon>dashboard</mat-icon> Dashboard
+      </button>
+      <button mat-button routerLink="/claims/new" routerLinkActive="active-nav-link">
+        <mat-icon>post_add</mat-icon> Register Claim
+      </button>
+    </div>
+
+    <div class="toolbar-right">
+      @if (currentUser) {
+        
+        <!-- Simulation Role Switcher -->
+        <div class="role-selector-box">
+          <mat-icon class="switcher-icon">admin_panel_settings</mat-icon>
+          <mat-form-field appearance="fill" class="compact-select">
+            <mat-select [value]="selectedRole" (selectionChange)="onRoleChange($event.value)">
+              <mat-option value="handler">Handler Role</mat-option>
+              <mat-option value="supervisor">Supervisor Role</mat-option>
+              <mat-option value="manager">Manager Role</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- User Profile display -->
+        <div class="user-profile">
+          <div class="user-meta">
+            <span class="user-name">{{ currentUser.name }}</span>
+            <span class="user-role-badge" [ngClass]="currentUser.role">
+              {{ currentUser.role }}
+            </span>
+          </div>
+          <mat-icon class="avatar-icon">account_circle</mat-icon>
+        </div>
+      }
+    </div>
+  </mat-toolbar>
+
+  <!-- Main View Area -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Professional Footer -->
+  <footer class="app-footer">
+    <p>&copy; 2026 DICEUS Claims Management Module. Built with Clean Architecture (.NET 9 + Angular 18).</p>
+  </footer>
+</div>

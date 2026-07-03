@@ -1,0 +1,4 @@
+using ClaimsModule.Domain.Common;
+using ClaimsModule.Domain.Enumerations;
+using ClaimsModule.Domain.Events;
+// This was written as a C# fallback trigger, but we need to write TypeScript files. Let's make sure I'm writing TS content.

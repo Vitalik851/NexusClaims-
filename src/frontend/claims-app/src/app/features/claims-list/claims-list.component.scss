@@ -1,0 +1,176 @@
+.dashboard-container {
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  .subtitle {
+    color: var(--text-secondary);
+    margin: 5px 0 0 0;
+    font-size: 1rem;
+  }
+
+  .new-claim-btn {
+    padding: 10px 20px;
+    height: 48px;
+    font-weight: 600;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 143, 0, 0.4); /* amber glow */
+    }
+  }
+}
+
+.filter-card {
+  margin-bottom: 25px;
+  border-radius: 12px;
+  background: var(--surface-card);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-color);
+
+  .filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 5px;
+
+    mat-form-field {
+      flex: 1;
+      min-width: 180px;
+      
+      &.search-field {
+        flex: 2;
+        min-width: 250px;
+      }
+    }
+
+    .reset-btn {
+      height: 52px;
+      margin-bottom: 20px; /* aligns with mat-form-field default height */
+      font-weight: 500;
+      border-radius: 8px;
+    }
+  }
+}
+
+.table-card {
+  border-radius: 12px;
+  background: var(--surface-card);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+
+  .table-container {
+    padding: 0;
+    position: relative;
+  }
+}
+
+.claims-table {
+  width: 100%;
+  background: transparent;
+
+  th {
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.8px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  td {
+    padding: 16px 24px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+  }
+
+  .claim-row {
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--hover-color);
+    }
+  }
+
+  .claim-number-cell a {
+    font-weight: 600;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+  }
+
+  .client-name {
+    font-weight: 500;
+  }
+
+  .reserves-cell {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .no-data-cell {
+    text-align: center;
+    padding: 50px 24px;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-muted);
+
+    mat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 15px;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 5px 0;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+mat-paginator {
+  background: transparent;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}

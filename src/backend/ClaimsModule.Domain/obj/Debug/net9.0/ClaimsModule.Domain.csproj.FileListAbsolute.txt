@@ -1,0 +1,12 @@
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\bin\Debug\net9.0\ClaimsModule.Domain.deps.json
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\bin\Debug\net9.0\ClaimsModule.Domain.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\bin\Debug\net9.0\ClaimsModule.Domain.pdb
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\ClaimsModule.Domain.csproj.AssemblyReference.cache
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\ClaimsModule.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\ClaimsModule.Domain.AssemblyInfoInputs.cache
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\ClaimsModule.Domain.AssemblyInfo.cs
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\ClaimsModule.Domain.csproj.CoreCompileInputs.cache
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\ClaimsModule.Domain.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\refint\ClaimsModule.Domain.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\ClaimsModule.Domain.pdb
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\ref\ClaimsModule.Domain.dll

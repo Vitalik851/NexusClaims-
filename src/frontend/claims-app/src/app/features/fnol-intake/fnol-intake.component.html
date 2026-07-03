@@ -1,0 +1,350 @@
+<div class="wizard-container">
+  <div class="wizard-header">
+    <h1>First Notice of Loss (FNOL)</h1>
+    <p class="subtitle">Complete the intake steps below to register a new claim and establish initial reserve components.</p>
+  </div>
+
+  <mat-card class="wizard-card">
+    <mat-card-content class="wizard-content">
+      <mat-stepper [linear]="true" #stepper class="custom-stepper">
+        
+        <!-- STEP 1: Policy & Loss Details -->
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Loss Details</ng-template>
+            
+            <div class="step-title">
+              <h2>Select Policy & Specify Loss Event</h2>
+              <p>Search for a policy and describe what happened.</p>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="col-6">
+                <mat-label>Policy Number</mat-label>
+                <input matInput formControlName="policyNumber" placeholder="Search (e.g. POL-2024)" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onPolicySelected($event.option.value)">
+                  @for (policy of searchedPolicies; track policy.id) {
+                    <mat-option [value]="policy.policyNumber">
+                      {{ policy.policyNumber }} - {{ policy.insuredName }}
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+                @if (selectedPolicy) {
+                  <mat-hint>Client: <strong>{{ selectedPolicy.insuredName }}</strong></mat-hint>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-6">
+                <mat-label>Cause of Loss</mat-label>
+                <mat-select formControlName="causeOfLossCode">
+                  @for (code of causeOfLossCodes; track code.code) {
+                    <mat-option [value]="code.code">{{ code.name }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="col-4">
+                <mat-label>Loss Date</mat-label>
+                <input matInput [matDatepicker]="pickerLoss" formControlName="lossDate" [max]="today">
+                <mat-datepicker-toggle matIconSuffix [for]="pickerLoss"></mat-datepicker-toggle>
+                <mat-datepicker #pickerLoss></mat-datepicker>
+                @if (firstFormGroup.get('lossDate')?.hasError('futureDate')) {
+                  <mat-error>Loss date cannot be in the future.</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-4">
+                <mat-label>Estimated Loss Amount ($)</mat-label>
+                <input matInput type="number" formControlName="estimatedLossAmount" placeholder="e.g. 5000">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-4">
+                <mat-label>Severity</mat-label>
+                <mat-select formControlName="severity">
+                  <mat-option value="Minor">Minor</mat-option>
+                  <mat-option value="Standard">Standard</mat-option>
+                  <mat-option value="Critical">Critical</mat-option>
+                  <mat-option value="Catastrophic">Catastrophic</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-label>Loss Location</mat-label>
+                <input matInput formControlName="lossLocation" placeholder="e.g. 123 Main St, Kyiv">
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-label>Loss Description (Required, min 20 characters)</mat-label>
+                <textarea matInput formControlName="lossDescription" rows="4" placeholder="Describe the event, cause, and damage in detail..."></textarea>
+                <mat-hint align="end">{{ firstFormGroup.get('lossDescription')?.value?.length || 0 }} / 20 min</mat-hint>
+                @if (firstFormGroup.get('lossDescription')?.hasError('minlength')) {
+                  <mat-error>Description must be at least 20 characters long.</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <div class="step-actions">
+              <span class="spacer"></span>
+              <button mat-raised-button color="primary" matStepperNext [disabled]="firstFormGroup.invalid">
+                Next: Claim Parties <mat-icon>chevron_right</mat-icon>
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!-- STEP 2: Claim Parties -->
+        <mat-step>
+          <ng-template matStepLabel>Claim Parties</ng-template>
+          
+          <div class="step-title">
+            <h2>Add Claim Parties</h2>
+            <p>Add the insured, claimant, witnesses, or representatives. <strong>At least one Claimant role is required.</strong></p>
+          </div>
+
+          <div class="party-list">
+            @for (party of parties; track $index; let idx = $index) {
+              <div class="party-item-card">
+                <div class="party-item-header">
+                  <h3>Party #{{ idx + 1 }}: {{ party.partyRole }} ({{ party.partyType }})</h3>
+                  <button mat-icon-button color="warn" (click)="removeParty(idx)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+                <div class="party-item-details">
+                  @if (party.partyType === 'Person') {
+                    <p><strong>Name:</strong> {{ party.firstName }} {{ party.lastName }}</p>
+                  } @else {
+                    <p><strong>Company:</strong> {{ party.companyName }}</p>
+                  }
+                  <p><strong>Contact:</strong> {{ party.email || 'No email' }} | {{ party.phone || 'No phone' }}</p>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- Add Party Form -->
+          <div class="add-party-panel">
+            <h3>Add New Party Details</h3>
+            <form [formGroup]="partyForm" (ngSubmit)="addParty()">
+              <div class="form-row">
+                <mat-form-field appearance="outline" class="col-4">
+                  <mat-label>Role</mat-label>
+                  <mat-select formControlName="partyRole">
+                    <mat-option value="Claimant">Claimant</mat-option>
+                    <mat-option value="Insured">Insured</mat-option>
+                    <mat-option value="ThirdParty">Third Party</mat-option>
+                    <mat-option value="Witness">Witness</mat-option>
+                    <mat-option value="Attorney">Attorney</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-4">
+                  <mat-label>Type</mat-label>
+                  <mat-select formControlName="partyType">
+                    <mat-option value="Person">Person</mat-option>
+                    <mat-option value="Company">Company</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              @if (partyForm.get('partyType')?.value === 'Person') {
+                <div class="form-row animate-fade">
+                  <mat-form-field appearance="outline" class="col-6">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="col-6">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName">
+                  </mat-form-field>
+                </div>
+              } @else {
+                <div class="form-row animate-fade">
+                  <mat-form-field appearance="outline" class="col-12">
+                    <mat-label>Company Name</mat-label>
+                    <input matInput formControlName="companyName">
+                  </mat-form-field>
+                </div>
+              }
+
+              <div class="form-row">
+                <mat-form-field appearance="outline" class="col-6">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" formControlName="email">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-6">
+                  <mat-label>Phone</mat-label>
+                  <input matInput formControlName="phone">
+                </mat-form-field>
+              </div>
+
+              <div class="form-row">
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-label>Notes</mat-label>
+                  <input matInput formControlName="notes">
+                </mat-form-field>
+              </div>
+
+              <button mat-stroked-button color="accent" type="submit" [disabled]="partyForm.invalid" class="add-btn">
+                <mat-icon>add</mat-icon> Append Party to List
+              </button>
+            </form>
+          </div>
+
+          <div class="step-actions">
+            <button mat-button matStepperPrevious><mat-icon>chevron_left</mat-icon> Back</button>
+            <span class="spacer"></span>
+            @if (!hasClaimant()) {
+              <span class="validation-warn">⚠️ At least one Claimant is required.</span>
+            }
+            <button mat-raised-button color="primary" matStepperNext [disabled]="!hasClaimant()">
+              Next: Risk Objects <mat-icon>chevron_right</mat-icon>
+            </button>
+          </div>
+        </mat-step>
+
+        <!-- STEP 3: Risk Objects -->
+        <mat-step>
+          <ng-template matStepLabel>Risk Objects</ng-template>
+          
+          <div class="step-title">
+            <h2>Specify Affected Assets / Risk Objects</h2>
+            <p>Define the vehicles, properties, or cargo involved. (Optional)</p>
+          </div>
+
+          <div class="risk-list">
+            @for (risk of riskObjects; track $index; let idx = $index) {
+              <div class="risk-item-card">
+                <div class="risk-item-header">
+                  <h3>Risk: {{ risk.assetType }} @if (risk.isPrimary) { <span class="primary-tag">Primary</span> }</h3>
+                  <button mat-icon-button color="warn" (click)="removeRiskObject(idx)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+                <p><strong>Asset:</strong> {{ risk.assetDescription }}</p>
+                <p><strong>Damage:</strong> {{ risk.damageDescription || 'N/A' }}</p>
+              </div>
+            }
+          </div>
+
+          <!-- Add Risk Form -->
+          <div class="add-risk-panel">
+            <h3>Add New Risk Object</h3>
+            <form [formGroup]="riskForm" (ngSubmit)="addRiskObject()">
+              <div class="form-row">
+                <mat-form-field appearance="outline" class="col-4">
+                  <mat-label>Asset Type</mat-label>
+                  <mat-select formControlName="assetType">
+                    <mat-option value="Vehicle">Vehicle</mat-option>
+                    <mat-option value="Property">Property</mat-option>
+                    <mat-option value="Person">Person</mat-option>
+                    <mat-option value="Equipment">Equipment</mat-option>
+                    <mat-option value="Other">Other</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-8">
+                  <mat-label>Asset Description</mat-label>
+                  <input matInput formControlName="assetDescription" placeholder="e.g. 2022 Volvo FH Truck (Plate: AA-1234)">
+                </mat-form-field>
+              </div>
+
+              <div class="form-row">
+                <mat-form-field appearance="outline" class="col-8">
+                  <mat-label>Damage Description</mat-label>
+                  <input matInput formControlName="damageDescription" placeholder="e.g. Rear bumper dent, broken taillight">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-4">
+                  <mat-label>Asset Reference / VIN</mat-label>
+                  <input matInput formControlName="assetReference">
+                </mat-form-field>
+              </div>
+
+              <div class="form-row">
+                <div class="checkbox-container">
+                  <mat-checkbox formControlName="isPrimary">Mark as Primary Asset</mat-checkbox>
+                </div>
+              </div>
+
+              <button mat-stroked-button color="accent" type="submit" [disabled]="riskForm.invalid" class="add-btn">
+                <mat-icon>add</mat-icon> Append Asset to List
+              </button>
+            </form>
+          </div>
+
+          <div class="step-actions">
+            <button mat-button matStepperPrevious><mat-icon>chevron_left</mat-icon> Back</button>
+            <span class="spacer"></span>
+            <button mat-raised-button color="primary" matStepperNext>
+              Next: Initial Reserve <mat-icon>chevron_right</mat-icon>
+            </button>
+          </div>
+        </mat-step>
+
+        <!-- STEP 4: Initial Reserve -->
+        <mat-step [stepControl]="fourthFormGroup">
+          <form [formGroup]="fourthFormGroup">
+            <ng-template matStepLabel>Initial Reserve</ng-template>
+            
+            <div class="step-title">
+              <h2>Establish Initial Financial Reserve Component</h2>
+              <p>Configure the initial reserve line and amount. Required if a policy is linked.</p>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="col-6">
+                <mat-label>Reserve Component Type</mat-label>
+                <mat-select formControlName="component">
+                  <mat-option value="Indemnity">Indemnity (Claim payments)</mat-option>
+                  <mat-option value="Expense">Expense (Investigation/legal)</mat-option>
+                  <mat-option value="ALAE">ALAE (Allocated Loss Adjustment Expense)</mat-option>
+                  <mat-option value="SubrogationRecoverable">Subrogation Recoverable (Expected recovery)</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-6">
+                <mat-label>Initial Reserve Amount ($)</mat-label>
+                <input matInput type="number" formControlName="amount" placeholder="e.g. 5000">
+                @if (fourthFormGroup.get('amount')?.hasError('min')) {
+                  <mat-error>Amount must be greater than 0.</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-label>Change Reason / Note</mat-label>
+                <input matInput formControlName="changeReason" placeholder="e.g. Initial reserve setup based on estimated vehicle collision impact.">
+              </mat-form-field>
+            </div>
+
+            <div class="authority-warning" *ngIf="fourthFormGroup.get('amount')?.value > 10000">
+              <mat-icon>warning</mat-icon>
+              <div>
+                <strong>Supervisor Approval Required:</strong> An initial reserve amount exceeding $10,000 will be set to <em>Pending Approval</em> and requires supervisor override.
+              </div>
+            </div>
+
+            <div class="step-actions">
+              <button mat-button matStepperPrevious><mat-icon>chevron_left</mat-icon> Back</button>
+              <span class="spacer"></span>
+              <button mat-raised-button color="accent" class="submit-claim-btn" (click)="submitClaim()" [disabled]="fourthFormGroup.invalid && selectedPolicy !== null">
+                <mat-icon>check_circle</mat-icon> Submit FNOL & Register Claim
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+      </mat-stepper>
+    </mat-card-content>
+  </mat-card>
+</div>

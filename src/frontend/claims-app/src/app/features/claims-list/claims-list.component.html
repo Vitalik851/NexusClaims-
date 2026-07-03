@@ -1,0 +1,158 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div>
+      <h1>Claims Dashboard</h1>
+      <p class="subtitle">Manage, review, and adjust insurance claims across organizations.</p>
+    </div>
+    <button mat-raised-button color="accent" class="new-claim-btn" routerLink="/claims/new">
+      <mat-icon>add</mat-icon> Register New Claim (FNOL)
+    </button>
+  </div>
+
+  <!-- Filters Panel -->
+  <mat-card class="filter-card">
+    <mat-card-content>
+      <form class="filter-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Search Claim or Client</mat-label>
+          <input matInput placeholder="e.g. CLM-2026-0000001" name="search" [(ngModel)]="filters.search" (ngModelChange)="onFilterChange()">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select name="status" [(ngModel)]="filters.status" (selectionChange)="onFilterChange()">
+            <mat-option value="">All Statuses</mat-option>
+            <mat-option value="Draft">Draft</mat-option>
+            <mat-option value="Open">Open</mat-option>
+            <mat-option value="UnderInvestigation">Investigation</mat-option>
+            <mat-option value="PendingPayment">Pending Payment</mat-option>
+            <mat-option value="Closed">Closed</mat-option>
+            <mat-option value="Reopened">Reopened</mat-option>
+            <mat-option value="Withdrawn">Withdrawn</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cause of Loss</mat-label>
+          <mat-select name="causeOfLossCode" [(ngModel)]="filters.causeOfLossCode" (selectionChange)="onFilterChange()">
+            <mat-option value="">All Causes</mat-option>
+            @for (code of causeOfLossCodes; track code.code) {
+              <mat-option [value]="code.code">{{ code.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date From</mat-label>
+          <input matInput [matDatepicker]="pickerFrom" name="dateFrom" [(ngModel)]="filters.dateFrom" (dateChange)="onFilterChange()">
+          <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFrom></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date To</mat-label>
+          <input matInput [matDatepicker]="pickerTo" name="dateTo" [(ngModel)]="filters.dateTo" (dateChange)="onFilterChange()">
+          <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
+          <mat-datepicker #pickerTo></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-button color="primary" class="reset-btn" (click)="resetFilters()">
+          Clear Filters
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Table Card -->
+  <mat-card class="table-card">
+    <mat-card-content class="table-container">
+      @if (loading) {
+        <app-loading-spinner [diameter]="50" message="Loading claims dashboard..."></app-loading-spinner>
+      } @else {
+        <table mat-table [dataSource]="claims" class="claims-table">
+          <!-- Claim Number -->
+          <ng-container matColumnDef="claimNumber">
+            <th mat-header-cell *matHeaderCellDef>Claim Number</th>
+            <td mat-cell *matCellDef="let claim" class="claim-number-cell">
+              <a [routerLink]="['/claims', claim.id]">{{ claim.claimNumber }}</a>
+            </td>
+          </ng-container>
+
+          <!-- Policy Number -->
+          <ng-container matColumnDef="policyNumber">
+            <th mat-header-cell *matHeaderCellDef>Policy Number</th>
+            <td mat-cell *matCellDef="let claim">{{ claim.policyNumber || 'N/A' }}</td>
+          </ng-container>
+
+          <!-- Client Name -->
+          <ng-container matColumnDef="clientName">
+            <th mat-header-cell *matHeaderCellDef>Client Name</th>
+            <td mat-cell *matCellDef="let claim" class="client-name">{{ claim.clientName || 'N/A' }}</td>
+          </ng-container>
+
+          <!-- Loss Date -->
+          <ng-container matColumnDef="lossDate">
+            <th mat-header-cell *matHeaderCellDef>Loss Date</th>
+            <td mat-cell *matCellDef="let claim">{{ claim.lossDate | date:'mediumDate' }}</td>
+          </ng-container>
+
+          <!-- Cause of Loss -->
+          <ng-container matColumnDef="causeOfLoss">
+            <th mat-header-cell *matHeaderCellDef>Cause of Loss</th>
+            <td mat-cell *matCellDef="let claim">{{ claim.causeOfLossName }}</td>
+          </ng-container>
+
+          <!-- Total Reserves -->
+          <ng-container matColumnDef="totalReserves">
+            <th mat-header-cell *matHeaderCellDef>Outstanding Reserve</th>
+            <td mat-cell *matCellDef="let claim" class="reserves-cell">
+              {{ claim.totalReserves | currency:'USD':'symbol':'1.2-2' }}
+            </td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let claim">
+              <app-status-badge [status]="claim.status"></app-status-badge>
+            </td>
+          </ng-container>
+
+          <!-- Actions -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let claim" align="end">
+              <button mat-icon-button [routerLink]="['/claims', claim.id]" matTooltip="View Details">
+                <mat-icon>chevron_right</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="claim-row"></tr>
+
+          <!-- Row shown when there is no matching data -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell no-data-cell" [attr.colspan]="displayedColumns.length">
+              <div class="empty-state">
+                <mat-icon>assignment_late</mat-icon>
+                <h3>No claims found</h3>
+                <p>Try adjusting your search query or filters.</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator 
+          [length]="totalCount"
+          [pageSize]="filters.pageSize"
+          [pageIndex]="filters.pageNumber - 1"
+          [pageSizeOptions]="[5, 10, 25, 50]"
+          (page)="onPageChange($event)"
+          showFirstLastButtons>
+        </mat-paginator>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
