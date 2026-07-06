@@ -17,3 +17,4 @@ C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Persistence\obj\
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Persistence\obj\Debug\net9.0\ClaimsModule.Persistence.pdb
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Persistence\obj\Debug\net9.0\ClaimsModule.Persistence.genruntimeconfig.cache
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Persistence\obj\Debug\net9.0\ref\ClaimsModule.Persistence.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Persistence\obj\Debug\net9.0\ClaimsModule.Persistence.sourcelink.json

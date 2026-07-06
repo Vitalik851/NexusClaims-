@@ -345,6 +345,10 @@
               "target": "Package",
               "version": "[1.8.20, )"
             },
+            "Hangfire.InMemory": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
             "Hangfire.SqlServer": {
               "target": "Package",
               "version": "[1.8.20, )"
@@ -429,6 +433,10 @@
           "framework": "net9.0",
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[9.0.7, )"

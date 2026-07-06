@@ -52,7 +52,7 @@ public class ReserveHistoryConfiguration : IEntityTypeConfiguration<ReserveHisto
             .IsRequired()
             .HasConversion<string>()
             .HasMaxLength(50)
-            .HasDefaultValue("Pending");
+            .HasDefaultValue(ClaimsModule.Domain.Enumerations.PostingStatus.Pending);
 
         builder.Property(e => e.PostingJobId)
             .HasMaxLength(100);

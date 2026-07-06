@@ -13,6 +13,7 @@
           "ClaimsModule.Persistence": "1.0.0",
           "Hangfire.AspNetCore": "1.8.20",
           "Hangfire.Core": "1.8.20",
+          "Hangfire.InMemory": "1.0.0",
           "Hangfire.SqlServer": "1.8.20",
           "Microsoft.Extensions.Azure": "1.9.0"
         },
@@ -166,6 +167,17 @@
           }
         }
       },
+      "Hangfire.InMemory/1.0.0": {
+        "dependencies": {
+          "Hangfire.Core": "1.8.20"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.InMemory.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Hangfire.NetCore/1.8.20": {
         "dependencies": {
           "Hangfire.Core": "1.8.20",
@@ -292,6 +304,19 @@
           "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
             "assemblyVersion": "9.0.7.0",
             "fileVersion": "9.0.725.31607"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.InMemory/9.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.7",
+          "Microsoft.Extensions.Caching.Memory": "9.0.7",
+          "Microsoft.Extensions.Logging": "9.0.7"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52902"
           }
         }
       },
@@ -735,6 +760,7 @@
         "dependencies": {
           "ClaimsModule.Application": "1.0.0",
           "ClaimsModule.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore.InMemory": "9.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.7"
         },
         "runtime": {
@@ -815,6 +841,13 @@
       "path": "hangfire.core/1.8.20",
       "hashPath": "hangfire.core.1.8.20.nupkg.sha512"
     },
+    "Hangfire.InMemory/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-56H71lfcqn5sN/8Bjj9hOLGTG5HIERLRuMsRJTFpw0Tsq5ck5OUkNvtUw92s7bwD3PRKOo4PkDGqNs9KugaqoQ==",
+      "path": "hangfire.inmemory/1.0.0",
+      "hashPath": "hangfire.inmemory.1.0.0.nupkg.sha512"
+    },
     "Hangfire.NetCore/1.8.20": {
       "type": "package",
       "serviceable": true,
@@ -877,6 +910,13 @@
       "sha512": "sha512-YUXNerEkCf4OANO+zjuMznpUW7R8XxSCqmBfYhBrbrJVc09i84KkNgeUTaOUXCGogSK/3d7ORRhMqfUobnejBg==",
       "path": "microsoft.entityframeworkcore.abstractions/9.0.7",
       "hashPath": "microsoft.entityframeworkcore.abstractions.9.0.7.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.InMemory/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Pm4NBnv3aB8O5bBNwWRkL4a/H+3WdgKRKYD93FkR9TrUNb0jfns9JVN5w9WEUsQCm0C69Eg2Y85i8pdmSfaNnQ==",
+      "path": "microsoft.entityframeworkcore.inmemory/9.0.0",
+      "hashPath": "microsoft.entityframeworkcore.inmemory.9.0.0.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/9.0.7": {
       "type": "package",

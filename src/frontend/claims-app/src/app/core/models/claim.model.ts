@@ -142,9 +142,9 @@ export interface CreateRiskObjectRequest {
 }
 
 export interface CreateReserveRequest {
-  reserveType: string;
-  initialAmount: number;
-  notes: string | null;
+  component: string;
+  amount: number;
+  changeReason: string | null;
 }
 
 export interface TransitionStatusRequest {

@@ -69,6 +69,7 @@ public class CreateClaimCommandHandler : IRequestHandler<CreateClaimCommand, Res
         // 4. Create Claim Aggregate Root
         var claim = new Claim
         {
+            Id = Guid.NewGuid(),
             OrganizationEntityId = request.OrganizationEntityId,
             ClaimNumber = claimNumber,
             PolicyId = request.PolicyId,
@@ -130,6 +131,7 @@ public class CreateClaimCommandHandler : IRequestHandler<CreateClaimCommand, Res
 
             var component = new ClaimReserveComponent
             {
+                ClaimId = claim.ClaimId,
                 Component = compType,
                 CurrentAmount = 0, // Will be updated by approved history
                 Status = "Active"
@@ -141,6 +143,7 @@ public class CreateClaimCommandHandler : IRequestHandler<CreateClaimCommand, Res
 
             var history = new ReserveHistory
             {
+                ClaimId = claim.ClaimId,
                 TransactionType = TransactionType.Add,
                 Amount = amount,
                 PreviousBalance = 0,

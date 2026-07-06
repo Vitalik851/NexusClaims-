@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClaimsModule.Persistence")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2ba64127d81b0f6d59cd26f0223b463052ec86ae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2a7357d2f42c5f5ca36e541fd83b800df0f41bd7")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClaimsModule.Persistence")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClaimsModule.Persistence")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

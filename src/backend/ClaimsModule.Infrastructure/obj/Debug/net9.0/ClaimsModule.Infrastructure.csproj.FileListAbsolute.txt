@@ -17,3 +17,4 @@ C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Infrastructure\o
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Infrastructure\obj\Debug\net9.0\refint\ClaimsModule.Infrastructure.dll
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Infrastructure\obj\Debug\net9.0\ClaimsModule.Infrastructure.pdb
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Infrastructure\obj\Debug\net9.0\ref\ClaimsModule.Infrastructure.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Infrastructure\obj\Debug\net9.0\ClaimsModule.Infrastructure.sourcelink.json

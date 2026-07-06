@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1Tsw1gO1ZXM=",
+  "dgSpecHash": "K0q/ZDViI1k=",
   "success": true,
   "projectFilePath": "C:\\Users\\vetal\\OneDrive\\Desktop\\DICEUS\\src\\backend\\ClaimsModule.Persistence\\ClaimsModule.Persistence.csproj",
   "expectedPackageFiles": [
@@ -28,6 +28,7 @@
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.7\\microsoft.entityframeworkcore.abstractions.9.0.7.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.7\\microsoft.entityframeworkcore.analyzers.9.0.7.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.design\\9.0.7\\microsoft.entityframeworkcore.design.9.0.7.nupkg.sha512",
+    "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\9.0.0\\microsoft.entityframeworkcore.inmemory.9.0.0.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\9.0.7\\microsoft.entityframeworkcore.relational.9.0.7.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\9.0.7\\microsoft.entityframeworkcore.sqlserver.9.0.7.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\9.0.7\\microsoft.entityframeworkcore.tools.9.0.7.nupkg.sha512",

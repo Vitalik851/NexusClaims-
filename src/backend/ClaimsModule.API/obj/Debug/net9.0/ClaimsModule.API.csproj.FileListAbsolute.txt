@@ -200,3 +200,4 @@ C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\obj\Debug\ne
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\obj\Debug\net9.0\ClaimsModule.API.pdb
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\obj\Debug\net9.0\ClaimsModule.API.genruntimeconfig.cache
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\obj\Debug\net9.0\ref\ClaimsModule.API.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\obj\Debug\net9.0\ClaimsModule.API.sourcelink.json

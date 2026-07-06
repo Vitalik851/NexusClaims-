@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ClaimsModule.Domain.Entities;
 using ClaimsModule.Domain.Common;
+using ClaimsModule.Domain.Events;
 
 namespace ClaimsModule.Persistence.Context;
 
@@ -25,6 +26,8 @@ public class ClaimsDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.Ignore<DomainEvent>();
         
         modelBuilder.HasSequence<int>("ClaimNumberSequence")
             .StartsAt(1)

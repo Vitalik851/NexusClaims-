@@ -9,7 +9,8 @@ public class CreateClaimCommandValidator : AbstractValidator<CreateClaimCommand>
     {
         RuleFor(v => v.LossDate)
             .NotEmpty().WithMessage("Loss date is required.")
-            .LessThanOrEqualTo(DateTimeOffset.UtcNow).WithMessage("Loss date cannot be in the future.");
+            .Must(date => date <= DateTimeOffset.UtcNow.AddHours(24))
+            .WithMessage("Loss date cannot be in the future.");
 
         RuleFor(v => v.LossDescription)
             .NotEmpty().WithMessage("Loss description is required.")
@@ -47,6 +48,10 @@ public class CreateClaimCommandValidator : AbstractValidator<CreateClaimCommand>
                     .MaximumLength(500).WithMessage("Change reason cannot exceed 500 characters.");
             })
             .When(v => v.InitialReserve != null);
+
+        RuleFor(v => v.Parties)
+            .Must(parties => parties != null && parties.Any(p => string.Equals(p.PartyRole, "Claimant", StringComparison.OrdinalIgnoreCase)))
+            .WithMessage("A claim must have at least one Claimant party (BR-C-03).");
 
         RuleForEach(v => v.Parties)
             .ChildRules(party =>

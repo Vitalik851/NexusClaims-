@@ -201,3 +201,11 @@ C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\obj\Release\
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\obj\Release\net9.0\ClaimsModule.API.pdb
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\obj\Release\net9.0\ClaimsModule.API.genruntimeconfig.cache
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\obj\Release\net9.0\ref\ClaimsModule.API.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\bin\Release\net9.0\publish\web.config
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\bin\Release\net9.0\publish\appsettings.Development.json
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\bin\Release\net9.0\publish\appsettings.json
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\bin\Release\net9.0\publish\ClaimsModule.API.deps.json
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\bin\Release\net9.0\publish\ClaimsModule.API.runtimeconfig.json
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\bin\Release\net9.0\publish\ClaimsModule.API.staticwebassets.endpoints.json
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\bin\Release\net9.0\Hangfire.InMemory.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.API\bin\Release\net9.0\Microsoft.EntityFrameworkCore.InMemory.dll

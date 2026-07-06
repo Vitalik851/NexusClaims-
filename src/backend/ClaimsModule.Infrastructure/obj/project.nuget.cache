@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "TGoNofuJfH4=",
+  "dgSpecHash": "9o3IJcMFP+w=",
   "success": true,
   "projectFilePath": "C:\\Users\\vetal\\OneDrive\\Desktop\\DICEUS\\src\\backend\\ClaimsModule.Infrastructure\\ClaimsModule.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,7 @@
     "C:\\Users\\vetal\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.11.0\\fluentvalidation.dependencyinjectionextensions.11.11.0.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\hangfire.aspnetcore\\1.8.20\\hangfire.aspnetcore.1.8.20.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\hangfire.core\\1.8.20\\hangfire.core.1.8.20.nupkg.sha512",
+    "C:\\Users\\vetal\\.nuget\\packages\\hangfire.inmemory\\1.0.0\\hangfire.inmemory.1.0.0.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\hangfire.netcore\\1.8.20\\hangfire.netcore.1.8.20.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\hangfire.sqlserver\\1.8.20\\hangfire.sqlserver.1.8.20.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\mediatr\\12.4.1\\mediatr.12.4.1.nupkg.sha512",
@@ -24,6 +25,7 @@
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.7\\microsoft.entityframeworkcore.9.0.7.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.7\\microsoft.entityframeworkcore.abstractions.9.0.7.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.7\\microsoft.entityframeworkcore.analyzers.9.0.7.nupkg.sha512",
+    "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\9.0.0\\microsoft.entityframeworkcore.inmemory.9.0.0.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\9.0.7\\microsoft.entityframeworkcore.relational.9.0.7.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\9.0.7\\microsoft.entityframeworkcore.sqlserver.9.0.7.nupkg.sha512",
     "C:\\Users\\vetal\\.nuget\\packages\\microsoft.extensions.azure\\1.9.0\\microsoft.extensions.azure.1.9.0.nupkg.sha512",

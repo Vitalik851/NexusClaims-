@@ -78,18 +78,20 @@ export class AuthService {
   }
 
   private generateFakeToken(user: AppUser): string {
-    const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-    const payload = btoa(
+    const toBase64Url = (str: string) => btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    
+    const header = toBase64Url(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+    const payload = toBase64Url(
       JSON.stringify({
-        sub: user.id,
-        name: user.name,
-        role: user.role,
-        org: user.organizationEntityId,
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier': user.id,
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name': user.name,
+        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role': user.role,
+        OrganizationId: user.organizationEntityId,
         iat: Math.floor(Date.now() / 1000),
         exp: Math.floor(Date.now() / 1000) + 3600,
       })
     );
-    const signature = btoa('fake-signature-for-dev');
+    const signature = toBase64Url('fake-signature-for-dev');
     return `${header}.${payload}.${signature}`;
   }
 }

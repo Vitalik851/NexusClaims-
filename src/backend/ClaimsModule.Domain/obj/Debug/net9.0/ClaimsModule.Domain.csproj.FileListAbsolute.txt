@@ -10,3 +10,4 @@ C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\refint\ClaimsModule.Domain.dll
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\ClaimsModule.Domain.pdb
 C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\ref\ClaimsModule.Domain.dll
+C:\Users\vetal\OneDrive\Desktop\DICEUS\src\backend\ClaimsModule.Domain\obj\Debug\net9.0\ClaimsModule.Domain.sourcelink.json

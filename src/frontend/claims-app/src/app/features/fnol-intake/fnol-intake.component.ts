@@ -262,21 +262,39 @@ export class FnolIntakeComponent implements OnInit {
     const step1 = this.firstFormGroup.value;
     const step4 = this.fourthFormGroup.value;
 
+    const rawCause = (step1.causeOfLossCode || '').toString().trim().toLowerCase();
+    let mappedCode = 'COL-OTHER';
+    if (rawCause.includes('fire')) mappedCode = 'COL-FIRE';
+    else if (rawCause.includes('flood')) mappedCode = 'COL-FLOOD';
+    else if (rawCause.includes('theft')) mappedCode = 'COL-THEFT';
+    else if (rawCause.includes('collision') || rawCause.includes('veh-col')) mappedCode = 'COL-VEH-COL';
+    else if (rawCause.includes('comp') || rawCause.includes('veh-comp')) mappedCode = 'COL-VEH-COMP';
+    else if (rawCause.includes('liab') || rawCause.includes('liability')) mappedCode = 'COL-LIAB';
+    else if (rawCause.includes('equip')) mappedCode = 'COL-EQUIP';
+    else if (rawCause.includes('wind') || rawCause.includes('storm')) mappedCode = 'COL-WIND';
+    else if (rawCause.includes('injury')) mappedCode = 'COL-INJURY';
+    else if (rawCause.includes('other') || rawCause.includes('unknown')) mappedCode = 'COL-OTHER';
+
+    const upperCause = rawCause.toUpperCase();
+    if (['COL-FIRE', 'COL-FLOOD', 'COL-THEFT', 'COL-VEH-COL', 'COL-VEH-COMP', 'COL-LIAB', 'COL-EQUIP', 'COL-WIND', 'COL-INJURY', 'COL-OTHER'].includes(upperCause)) {
+      mappedCode = upperCause;
+    }
+
     const claimRequest = {
       organizationEntityId: '11111111-1111-1111-1111-111111111111', // Enriched by API but defined for DTO structure
       policyId: this.selectedPolicy ? this.selectedPolicy.id : null,
       lossDate: step1.lossDate.toISOString(),
       lossDescription: step1.lossDescription,
       lossLocation: step1.lossLocation || null,
-      causeOfLossCode: step1.causeOfLossCode,
+      causeOfLossCode: mappedCode,
       estimatedLossAmount: step1.estimatedLossAmount,
       severity: step1.severity,
       parties: this.parties,
       riskObjects: this.riskObjects,
       initialReserve: (this.selectedPolicy && step4.amount > 0) ? {
-        reserveType: step4.component,
-        initialAmount: step4.amount,
-        notes: step4.changeReason
+        component: step4.component,
+        amount: step4.amount,
+        changeReason: step4.changeReason
       } : null
     };
 
@@ -287,8 +305,9 @@ export class FnolIntakeComponent implements OnInit {
       },
       error: (err) => {
         console.error('Failed to submit claim', err);
-        const errMsg = err.error?.message || 'Intake validation failed. Please check inputs.';
-        this.snackBar.open(`Error: ${errMsg}`, 'Close', { duration: 6000 });
+        let msg = `Stat: ${err.status} - ${err.message}`;
+        if (err.error) msg += ` - Err: ${typeof err.error === 'object' ? JSON.stringify(err.error) : err.error}`;
+        this.snackBar.open(msg.substring(0, 500), 'Close', { duration: 15000 });
       }
     });
   }
